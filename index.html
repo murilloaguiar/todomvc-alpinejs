@@ -76,8 +76,14 @@
 						<a @click.prevent="filter = 'completed'" href="#/completed" :class="{selected: filter === 'completed'}">Completed</a>
 					</li>
 				</ul>
-				<!-- Hidden if no completed items are left ↓ -->
-				<button x-show="completed.length" class="clear-completed">Clear completed</button>
+
+				<button 
+					x-show="completed.length" 
+					@click="todos = active"
+					class="clear-completed"
+				>
+					Clear completed
+				</button>
 			</footer>
 		</section>
 		<footer class="info">
