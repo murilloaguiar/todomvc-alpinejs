@@ -25,10 +25,24 @@ window.todos = function (){
         },
 
         editTodo(todo){
+            todo.cachedBody = todo.body
             this.editedTodo = todo
         },
 
-        editComplete(){
+        cancelEdit(todo){
+            todo.body = todo.cachedBody
+
+            this.editedTodo = null
+
+            delete todo.cachedBody
+        },
+
+        editComplete(todo){
+            if (todo.body.trim() === '') {
+                return this.deleteTodo(todo)
+            }
+
+
             this.editedTodo = null
         },
 

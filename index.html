@@ -51,6 +51,7 @@
 								class="edit" 
 								x-model="todo.body" 
 								@keyup.enter="editComplete(todo)"
+								@keyup.escape="cancelEdit(todo)"
 							/>
 						</li>
 					</template>
