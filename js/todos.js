@@ -4,6 +4,10 @@ window.todos = function (){
 
         editedTodo: null,
 
+        newTodo: '',
+
+        filter: 'all', 
+
         get active(){
             return this.todos.filter(todo => !todo.completed)
         },
@@ -12,7 +16,23 @@ window.todos = function (){
             return this.todos.filter(todo => todo.completed)
         },
 
-        newTodo: '',
+        get filteredTodos(){
+            return {
+                all: this.todos,
+                active: this.active,
+                completed: this.completed
+            }[this.filter] // acessando a propriedade do objeto
+
+            // if (this.filter === 'all') {
+            //     return this.todos;
+            // }
+            // if (this.filter === 'active') {
+            //     return this.active;
+            // }
+            // if (this.filter === 'completed') {
+            //     return this.completed;
+            // }
+        },
 
         addTodo(){
             this.todos.push({
