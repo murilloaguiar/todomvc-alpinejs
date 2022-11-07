@@ -1,11 +1,17 @@
+window.todoStore = {
+    todos: JSON.parse(localStorage.getItem('todo-store') || '[]'),
+
+    save(){
+        localStorage.setItem('todo-store',JSON.stringify(this.todos))
+    }
+}
+
+
 window.todos = function (){
     return {
-        todos:[],
-
+        ...todoStore,
         editedTodo: null,
-
         newTodo: '',
-
         filter: 'all', 
 
         get active(){
@@ -42,11 +48,14 @@ window.todos = function (){
             if (!this.newTodo) {
                 return
             }
+            
             this.todos.push({
                 id: Date.now(),
                 body: this.newTodo,
                 completed: false
             })
+
+            this.save()
 
             this.newTodo = ''
         },
@@ -69,20 +78,37 @@ window.todos = function (){
                 return this.deleteTodo(todo)
             }
 
-
             this.editedTodo = null
+
+            this.save()
         },
 
         deleteTodo(todo){
             let position = this.todos.indexOf(todo)
 
             this.todos.splice(position, 1)
+
+            this.save()
         },
 
-        toggleAllTodos(){
+        toggleTodoCompletion(todo){
+            todo.completed = !todo.completed
+
+            this.save()
+        },
+
+        toggleAllComplete(){
             let allComplete = this.allComplete
 
             this.todos.forEach(todo => todo.completed = !allComplete)
+
+            this.save()
+        },
+
+        clearCompletedTodos(){
+            this.todos = this.active
+
+            this.save()
         }
     }
 }

@@ -31,7 +31,7 @@
 			<section class="main" x-show="todos.length">
 
 				<input x-model="allComplete"
-					@click = "toggleAllTodos"
+					@click = "toggleAllComplete"
 					id="toggle-all" 
 					class="toggle-all" 
 					type="checkbox" 
@@ -51,7 +51,7 @@
 							<div class="view">
 								<input 
 									x-model="todo.completed"
-									@click="todo.completed = !todo.completed"
+									@click="toggleTodoCompletion(todo)"
 									class="toggle" 
 									type="checkbox" 
 								/>
@@ -87,7 +87,7 @@
 
 				<button 
 					x-show="completed.length" 
-					@click="todos = active"
+					@click="clearCompletedTodos"
 					class="clear-completed"
 				>
 					Clear completed
